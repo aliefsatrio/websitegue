@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FutsalPro - Reservasi Lapangan Futsal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom CSS for parts that can't be done with Tailwind */
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .booking-form {
+            box-shadow: 0 10px 30px rgba(0, 0, 100, 0.1);
+        }
+        
+        .availability-checker {
+            transition: all 0.3s ease;
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu {
+                display: none;
+            }
+            
+            .mobile-menu.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: white;
+                padding: 20px;
+                z-index: 100;
+            }
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-blue-700 text-white shadow-lg">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-futbol text-2xl"></i>
+                <a href="#" class="text-xl font-bold">FutsalPro</a>
+            </div>
+            
+            <div class="hidden md:flex space-x-6">
+                <a href="#home" class="hover:text-blue-200">Beranda</a>
+                <a href="#features" class="hover:text-blue-200">Fasilitas</a>
+                <a href="#booking" class="hover:text-blue-200">Reservasi</a>
+                <a href="#contact" class="hover:text-blue-200">Kontak</a>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <a href="login.html" class="bg-white text-blue-700 px-4 py-2 rounded-md font-medium hover:bg-blue-50 transition">Login</a>
+                <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="mobile-menu md:hidden bg-blue-700">
+            <a href="#home" class="py-2 hover:text-blue-200">Beranda</a>
+            <a href="#features" class="py-2 hover:text-blue-200">Fasilitas</a>
+            <a href="#booking" class="py-2 hover:text-blue-200">Reservasi</a>
+            <a href="#contact" class="py-2 hover:text-blue-200">Kontak</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section text-white py-20 md:py-32">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">Reservasi Lapangan Futsal Online</h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">Booking lapangan futsal favorit Anda dengan mudah dan cepat. Tersedia berbagai pilihan lapangan berkualitas.</p>
+            <a href="#booking" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-md font-bold text-lg transition">Pesan Sekarang</a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-blue-800">Fasilitas Unggulan Kami</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-blue-50 p-6 rounded-lg text-center">
+                    <div class="text-blue-600 mb-4">
+                        <i class="fas fa-calendar-check text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Reservasi Online</h3>
+                    <p class="text-gray-600">Booking lapangan kapan saja melalui website kami tanpa perlu datang ke lokasi.</p>
+                </div>
+                
+                <div class="bg-blue-50 p-6 rounded-lg text-center">
+                    <div class="text-blue-600 mb-4">
+                        <i class="fas fa-check-circle text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Konfirmasi Instan</h3>
+                    <p class="text-gray-600">Dapatkan konfirmasi reservasi Anda secara real-time melalui email dan WhatsApp.</p>
+                </div>
+                
+                <div class="bg-blue-50 p-6 rounded-lg text-center">
+                    <div class="text-blue-600 mb-4">
+                        <i class="fas fa-star text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Lapangan Berkualitas</h3>
+                    <p class="text-gray-600">Lapangan dengan rumput sintetis premium dan pencahayaan yang optimal.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Section -->
+    <section id="booking" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-blue-800">Formulir Reservasi</h2>
+            
+            <div class="max-w-4xl mx-auto bg-white rounded-xl overflow-hidden booking-form">
+                <div class="md:flex">
+                    <div class="md:w-1/2 bg-blue-700 text-white p-8">
+                        <h3 class="text-2xl font-bold mb-4">Informasi Reservasi</h3>
+                        <p class="mb-6">Isi formulir reservasi untuk memesan lapangan futsal. Pastikan data yang Anda masukkan benar.</p>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <h4 class="font-bold">Jam Operasional</h4>
+                                <p>08:00 - 22:00 WIB</p>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Harga</h4>
+                                <p>Rp 150.000 - Rp 300.000 / jam</p>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Kontak</h4>
+                                <p>0812-3456-7890</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="md:w-1/2 p-8">
+                        <form id="reservationForm" action="reservasi.php" method="POST">
+                            <div class="mb-4">
+                                <label for="nama" class="block text-gray-700 font-medium mb-2">Nama Lengkap</label>
+                                <input type="text" id="nama" name="nama" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
+                                <input type="email" id="email" name="email" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="telepon" class="block text-gray-700 font-medium mb-2">Nomor Telepon</label>
+                                <input type="tel" id="telepon" name="telepon" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="tanggal" class="block text-gray-700 font-medium mb-2">Tanggal</label>
+                                <input type="date" id="tanggal" name="tanggal" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="waktu" class="block text-gray-700 font-medium mb-2">Waktu</label>
+                                <select id="waktu" name="waktu" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                                    <option value="">Pilih Waktu</option>
+                                    <option value="08:00-09:00">08:00 - 09:00</option>
+                                    <option value="09:00-10:00">09:00 - 10:00</option>
+                                    <option value="10:00-11:00">10:00 - 11:00</option>
+                                    <option value="11:00-12:00">11:00 - 12:00</option>
+                                    <option value="13:00-14:00">13:00 - 14:00</option>
+                                    <option value="14:00-15:00">14:00 - 15:00</option>
+                                    <option value="15:00-16:00">15:00 - 16:00</option>
+                                    <option value="16:00-17:00">16:00 - 17:00</option>
+                                    <option value="17:00-18:00">17:00 - 18:00</option>
+                                    <option value="18:00-19:00">18:00 - 19:00</option>
+                                    <option value="19:00-20:00">19:00 - 20:00</option>
+                                    <option value="20:00-21:00">20:00 - 21:00</option>
+                                    <option value="21:00-22:00">21:00 - 22:00</option>
+                                </select>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="lapangan" class="block text-gray-700 font-medium mb-2">Lapangan</label>
+                                <select id="lapangan" name="lapangan" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                                    <option value="">Pilih Lapangan</option>
+                                    <option value="1">Lapangan A (Standard) - Rp 150.000/jam</option>
+                                    <option value="2">Lapangan B (Premium) - Rp 200.000/jam</option>
+                                    <option value="3">Lapangan C (VIP) - Rp 300.000/jam</option>
+                                </select>
+                            </div>
+                            
+                            <button type="button" id="checkAvailability" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md font-medium mb-4 availability-checker">
+                                Cek Ketersediaan
+                            </button>
+                            
+                            <div id="availabilityResult" class="hidden mb-4 p-3 rounded-md"></div>
+                            
+                            <button type="submit" id="submitBooking" class="w-full bg-green-600 hover:bg-green-700 text-white py-3 px-4 rounded-md font-medium hidden">
+                                Lanjutkan Pembayaran
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Payment Methods Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-blue-800">Metode Pembayaran</h2>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+                <div class="bg-gray-100 p-4 rounded-lg text-center">
+                    <img src="https://via.placeholder.com/100x50?text=BCA" alt="BCA" class="h-12 mx-auto mb-2">
+                    <p class="font-medium">Transfer Bank BCA</p>
+                </div>
+                
+                <div class="bg-gray-100 p-4 rounded-lg text-center">
+                    <img src="https://via.placeholder.com/100x50?text=Mandiri" alt="Mandiri" class="h-12 mx-auto mb-2">
+                    <p class="font-medium">Transfer Bank Mandiri</p>
+                </div>
+                
+                <div class="bg-gray-100 p-4 rounded-lg text-center">
+                    <img src="https://via.placeholder.com/100x50?text=Gopay" alt="Gopay" class="h-12 mx-auto mb-2">
+                    <p class="font-medium">Gopay</p>
+                </div>
+                
+                <div class="bg-gray-100 p-4 rounded-lg text-center">
+                    <img src="https://via.placeholder.com/100x50?text=OVO" alt="OVO" class="h-12 mx-auto mb-2">
+                    <p class="font-medium">OVO</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-blue-700 text-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Hubungi Kami</h2>
+            
+            <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Informasi Kontak</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3"></i>
+                            <p>Jl. Futsal No. 123, Kota Bandung, Jawa Barat</p>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-phone-alt mr-3"></i>
+                            <p>0812-3456-7890</p>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-envelope mr-3"></i>
+                            <p>info@futsalpro.com</p>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-xl font-bold mt-8 mb-4">Jam Operasional</h3>
+                    <p>Setiap Hari: 08:00 - 22:00 WIB</p>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Kirim Pesan</h3>
+                    <form>
+                        <div class="mb-4">
+                            <input type="text" placeholder="Nama Anda" class="w-full px-4 py-2 rounded-md text-gray-800">
+                        </div>
+                        <div class="mb-4">
+                            <input type="email" placeholder="Email Anda" class="w-full px-4 py-2 rounded-md text-gray-800">
+                        </div>
+                        <div class="mb-4">
+                            <textarea placeholder="Pesan Anda" rows="4" class="w-full px-4 py-2 rounded-md text-gray-800"></textarea>
+                        </div>
+                        <button type="submit" class="bg-white text-blue-700 px-6 py-2 rounded-md font-medium hover:bg-blue-100 transition">Kirim</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-blue-900 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-futbol text-2xl"></i>
+                        <span class="text-xl font-bold">FutsalPro</span>
+                    </div>
+                    <p class="mt-2">Reservasi Lapangan Futsal Online</p>
+                </div>
+                
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-blue-300"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="hover:text-blue-300"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="hover:text-blue-300"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="hover:text-blue-300"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            
+            <div class="border-t border-blue-800 mt-8 pt-8 text-center">
+                <p>&copy; 2023 FutsalPro. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg w-full max-w-md p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-blue-800">Login</h3>
+                <button id="closeLoginModal" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <form id="loginForm" action="login.php" method="POST">
+                <div class="mb-4">
+                    <label for="loginEmail" class="block text-gray-700 font-medium mb-2">Email</label>
+                    <input type="email" id="loginEmail" name="email" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                </div>
+                
+                <div class="mb-6">
+                    <label for="loginPassword" class="block text-gray-700 font-medium mb-2">Password</label>
+                    <input type="password" id="loginPassword" name="password" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                </div>
+                
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md font-medium">
+                    Login
+                </button>
+            </form>
+            
+            <div class="mt-4 text-center">
+                <p class="text-gray-600">Belum punya akun? <a href="register.html" class="text-blue-600 hover:underline">Daftar disini</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg w-full max-w-md p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-blue-800">Pembayaran</h3>
+                <button id="closePaymentModal" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="mb-6">
+                <h4 class="font-bold mb-2">Detail Reservasi:</h4>
+                <p id="paymentDetails" class="text-gray-700"></p>
+            </div>
+            
+            <form id="paymentForm" action="payment.php" method="POST" enctype="multipart/form-data">
+                <div class="mb-4">
+                    <label for="paymentMethod" class="block text-gray-700 font-medium mb-2">Metode Pembayaran</label>
+                    <select id="paymentMethod" name="payment_method" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        <option value="">Pilih Metode</option>
+                        <option value="bca">Transfer Bank BCA</option>
+                        <option value="mandiri">Transfer Bank Mandiri</option>
+                        <option value="gopay">Gopay</option>
+                        <option value="ovo">OVO</option>
+                    </select>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="paymentProof" class="block text-gray-700 font-medium mb-2">Upload Bukti Pembayaran</label>
+                    <input type="file" id="paymentProof" name="payment_proof" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                </div>
+                
+                <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-md font-medium">
+                    Konfirmasi Pembayaran
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmationModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg w-full max-w-md p-6 text-center">
+            <div class="text-green-500 mb-4">
+                <i class="fas fa-check-circle text-6xl"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-blue-800 mb-4">Reservasi Berhasil!</h3>
+            <p id="confirmationMessage" class="text-gray-700 mb-6"></p>
+            <button id="closeConfirmationModal" class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded-md font-medium">
+                Tutup
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!mobileMenu.contains(e.target) && e.target !== mobileMenuButton) {
+                mobileMenu.classList.remove('active');
+            }
+        });
+        
+        // Check Availability Button
+        const checkAvailabilityBtn = document.getElementById('checkAvailability');
+        const availabilityResult = document.getElementById('availabilityResult');
+        const submitBookingBtn = document.getElementById('submitBooking');
+        
+        checkAvailabilityBtn.addEventListener('click', () => {
+            const tanggal = document.getElementById('tanggal').value;
+            const waktu = document.getElementById('waktu').value;
+            const lapangan = document.getElementById('lapangan').value;
+            
+            if (!tanggal || !waktu || !lapangan) {
+                availabilityResult.innerHTML = '<div class="bg-red-100 text-red-700">Harap isi semua field yang diperlukan</div>';
+                availabilityResult.classList.remove('hidden');
+                return;
+            }
+            
+            // Simulate AJAX call to check availability
+            checkAvailabilityBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Memeriksa...';
+            checkAvailabilityBtn.classList.add('opacity-75');
+            
+            setTimeout(() => {
+                // This would be replaced with actual AJAX call in production
+                // For demo purposes, we'll assume the field is available 80% of the time
+                const isAvailable = Math.random() > 0.2;
+                
+                if (isAvailable) {
+                    availabilityResult.innerHTML = '<div class="bg-green-100 text-green-700">Lapangan tersedia! Silakan lanjutkan pemesanan.</div>';
+                    submitBookingBtn.classList.remove('hidden');
+                } else {
+                    availabilityResult.innerHTML = '<div class="bg-red-100 text-red-700">Maaf, lapangan sudah dipesan untuk waktu tersebut. Silakan pilih waktu lain.</div>';
+                    submitBookingBtn.classList.add('hidden');
+                }
+                
+                availabilityResult.classList.remove('hidden');
+                checkAvailabilityBtn.innerHTML = 'Cek Ketersediaan';
+                checkAvailabilityBtn.classList.remove('opacity-75');
+            }, 1500);
+        });
+        
+        // Form Submission
+        const reservationForm = document.getElementById('reservationForm');
+        const paymentModal = document.getElementById('paymentModal');
+        const closePaymentModal = document.getElementById('closePaymentModal');
+        const paymentDetails = document.getElementById('paymentDetails');
+        
+        reservationForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Get form values
+            const nama = document.getElementById('nama').value;
+            const email = document.getElementById('email').value;
+            const telepon = document.getElementById('telepon').value;
+            const tanggal = document.getElementById('tanggal').value;
+            const waktu = document.getElementById('waktu').value;
+            const lapanganSelect = document.getElementById('lapangan');
+            const lapanganText = lapanganSelect.options[lapanganSelect.selectedIndex].text;
+            
+            // Display payment details
+            paymentDetails.innerHTML = `
+                <p><strong>Nama:</strong> ${nama}</p>
+                <p><strong>Email:</strong> ${email}</p>
+                <p><strong>Telepon:</strong> ${telepon}</p>
+                <p><strong>Tanggal:</strong> ${tanggal}</p>
+                <p><strong>Waktu:</strong> ${waktu}</p>
+                <p><strong>Lapangan:</strong> ${lapanganText}</p>
+            `;
+            
+            // Show payment modal
+            paymentModal.classList.remove('hidden');
+        });
+        
+        closePaymentModal.addEventListener('click', () => {
+            paymentModal.classList.add('hidden');
+        });
+        
+        // Payment Form Submission
+        const paymentForm = document.getElementById('paymentForm');
+        const confirmationModal = document.getElementById('confirmationModal');
+        const closeConfirmationModal = document.getElementById('closeConfirmationModal');
+        const confirmationMessage = document.getElementById('confirmationMessage');
+        
+        paymentForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Simulate payment processing
+            setTimeout(() => {
+                paymentModal.classList.add('hidden');
+                
+                // Show confirmation
+                confirmationMessage.innerHTML = `
+                    Reservasi Anda telah berhasil!<br>
+                    Kami telah mengirimkan detail reservasi ke email Anda.<br>
+                    Kode Booking: FUTSAL-${Math.floor(1000 + Math.random() * 9000)}
+                `;
+                confirmationModal.classList.remove('hidden');
+                
+                // Reset forms
+                reservationForm.reset();
+                paymentForm.reset();
+                availabilityResult.classList.add('hidden');
+                submitBookingBtn.classList.add('hidden');
+            }, 2000);
+        });
+        
+        closeConfirmationModal.addEventListener('click', () => {
+            confirmationModal.classList.add('hidden');
+        });
+        
+        // Login Modal
+        const loginModal = document.getElementById('loginModal');
+        const closeLoginModal = document.getElementById('closeLoginModal');
+        
+        // This would be triggered by clicking login button
+        // For demo, we'll simulate it after 3 seconds
+        setTimeout(() => {
+            // loginModal.classList.remove('hidden');
+        }, 3000);
+        
+        closeLoginModal.addEventListener('click', () => {
+            loginModal.classList.add('hidden');
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    mobileMenu.classList.remove('active');
+                }
+            });
+        });
+    </script>
+
+    <!-- PHP Backend Placeholders (would be in separate files in production) -->
+    <!-- 
+    File Structure:
+    - index.php (this file)
+    - login.php (handles user login)
+    - register.php (handles user registration)
+    - reservasi.php (handles reservation processing)
+    - payment.php (handles payment processing)
+    - admin/
+      - dashboard.php (admin dashboard)
+      - reservations.php (manage reservations)
+      - payments.php (manage payments)
+    - includes/
+      - config.php (database configuration)
+      - functions.php (common functions)
+      - header.php
+      - footer.php
+    - assets/
+      - css/
+      - js/
+      - images/
+    -->
+
+    <!-- Sample SQL for database creation -->
+    <!-- 
+    CREATE DATABASE futsal_reservation;
+    
+    USE futsal_reservation;
+    
+    CREATE TABLE users (
+        id_user INT AUTO_INCREMENT PRIMARY KEY,
+        username VARCHAR(50) NOT NULL,
+        password VARCHAR(255) NOT NULL,
+        email VARCHAR(100) NOT NULL UNIQUE,
+        role ENUM('user', 'admin') DEFAULT 'user',
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+    
+    CREATE TABLE lapangan (
+        id_lapangan INT AUTO_INCREMENT PRIMARY KEY,
+        tipe VARCHAR(50) NOT NULL,
+        harga INT NOT NULL,
+        status ENUM('available', 'maintenance') DEFAULT 'available'
+    );
+    
+    CREATE TABLE reservasi (
+        id_reservasi INT AUTO_INCREMENT PRIMARY KEY,
+        id_user INT NOT NULL,
+        id_lapangan INT NOT NULL,
+        tanggal DATE NOT NULL,
+        waktu VARCHAR(20) NOT NULL,
+        status ENUM('pending', 'confirmed', 'canceled') DEFAULT 'pending',
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (id_user) REFERENCES users(id_user),
+        FOREIGN KEY (id_lapangan) REFERENCES lapangan(id_lapangan)
+    );
+    
+    CREATE TABLE pembayaran (
+        id_pembayaran INT AUTO_INCREMENT PRIMARY KEY,
+        id_reservasi INT NOT NULL,
+        metode VARCHAR(50) NOT NULL,
+        bukti VARCHAR(255) NOT NULL,
+        status ENUM('pending', 'verified', 'rejected') DEFAULT 'pending',
+        verified_at TIMESTAMP NULL,
+        FOREIGN KEY (id_reservasi) REFERENCES reservasi(id_reservasi)
+    );
+    
+    -- Insert sample data
+    INSERT INTO lapangan (tipe, harga) VALUES 
+    ('Standard', 150000),
+    ('Premium', 200000),
+    ('VIP', 300000);
+    
+    INSERT INTO users (username, password, email, role) VALUES 
+    ('admin', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin@futsalpro.com', 'admin'),
+    ('user1', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'user1@example.com', 'user');
+    -->
+</body>
+</html>
